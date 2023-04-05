@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class SkupinaZetonov {
-	protected Set<Zeton> skupina;
-	protected Polje barva;
+	public Set<Zeton> skupina;
+	public Polje barva;
 	
 	public SkupinaZetonov(Zeton z) {
 		skupina = new HashSet<Zeton>();

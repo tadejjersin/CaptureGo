@@ -12,10 +12,12 @@ import splosno.Poteza;
 public class Igra {
 	protected Map<Koordinati, Zeton> mreza;
 	protected Igralec na_potezi;
-	protected Set<SkupinaZetonov> skupine_zetonov;
-	protected SkupinaZetonov obkoljena;
+	public Set<SkupinaZetonov> skupine_zetonov;
+	public SkupinaZetonov obkoljena;
+	public int dimMreze;
 	
 	public Igra() {
+		dimMreze = 9;
 		mreza = new HashMap<Koordinati, Zeton>();
 		na_potezi = Igralec.CRNI;
 		obkoljena = null;

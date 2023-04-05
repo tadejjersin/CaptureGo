@@ -12,15 +12,13 @@ import splosno.Poteza;
 public class Igra {
 	protected Map<Koordinati, Zeton> mreza;
 	protected Igralec na_potezi;
-	public Set<SkupinaZetonov> skupine_zetonov;
-	public SkupinaZetonov obkoljena;
+	protected Set<SkupinaZetonov> skupine_zetonov;
 	public int dimMreze;
 	
 	public Igra() {
 		dimMreze = 9;
 		mreza = new HashMap<Koordinati, Zeton>();
 		na_potezi = Igralec.CRNI;
-		obkoljena = null;
 		skupine_zetonov = new HashSet<SkupinaZetonov>();
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
@@ -29,24 +27,50 @@ public class Igra {
 		}
 	}
 	
-	public Stanje stanje() { // ne dela še za izjeme iz pravil
+	public Igralec na_vrsti() {
+		return na_potezi;
+	}
+	
+	public Stanje stanje() { 
+		SkupinaZetonov obkoljena = null;
+		Set<SkupinaZetonov> obkoljene_druga_barva = new HashSet<SkupinaZetonov>();
 		for (SkupinaZetonov sk : skupine_zetonov) {
 			if (jeObkoljena(sk)) {
 				switch (sk.barva) {
 				case BELO:
-					obkoljena = sk;
-					return Stanje.ZMAGA_CRNI;
+					if (na_potezi.polje() == Polje.BELO) obkoljene_druga_barva.add(sk);
+					else obkoljena = sk;
 				case CRNO:
-					obkoljena = sk;
-					return Stanje.ZMAGA_BELI;
+					if (na_potezi.polje() == Polje.CRNO) obkoljene_druga_barva.add(sk);
+					else obkoljena = sk;
 				case PRAZNO:
 					assert false;
 				}
 			}
-			for (Zeton z : mreza.values()) {
-				if (z.polje == Polje.PRAZNO) return Stanje.V_TEKU;
+		}
+		if (obkoljene_druga_barva.size() > 0) {
+			for (SkupinaZetonov s : obkoljene_druga_barva) {
+				for (Zeton z : s.skupina) z.obkoli();
+			}
+			switch (na_potezi) {
+			case BELI:
+				return Stanje.ZMAGA_CRNI;
+			case CRNI:
+				return Stanje.ZMAGA_BELI;
+			}
+		} else if (obkoljena != null) {
+			for (Zeton z : obkoljena.skupina) z.obkoli();
+			switch (na_potezi) {
+			case BELI:
+				return Stanje.ZMAGA_BELI;
+			case CRNI:
+				return Stanje.ZMAGA_CRNI;
 			}
 		}
+		for (Zeton z : mreza.values()) {
+			if (z.polje == Polje.PRAZNO) return Stanje.V_TEKU;
+		}
+		
 		return Stanje.NEODLOCENO;
 	}
 	
@@ -60,7 +84,7 @@ public class Igra {
 	}
 	
 	
-	public void narediPotezo(Poteza poteza) {
+	public boolean narediPotezo(Poteza poteza) {
 		int x = poteza.getX();
 		int y = poteza.getY();
 		Koordinati k = new Koordinati(x, y);
@@ -88,6 +112,8 @@ public class Igra {
 			
 			
 			na_potezi = na_potezi.nasprotnik();
+			return true;
 		}
+		return false;
 	}
 }

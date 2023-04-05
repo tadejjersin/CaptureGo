@@ -4,15 +4,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Zeton {
-	public Koordinati koordinati;
-	Set<Koordinati> sosedi;
-	Polje polje;
-	int dim_mreze;
+	protected Koordinati koordinati;
+	protected Set<Koordinati> sosedi;
+	protected Polje polje;
+	protected boolean obkoljen;
+	protected int dim_mreze;
 	
 	public Zeton(int x, int y) {
 		koordinati = new Koordinati(x, y);
 		polje = Polje.PRAZNO;
 		sosedi = new HashSet<Koordinati>();
+		obkoljen = false;
 		dim_mreze = 9;
 		
 		int[] arr = {1, -1};
@@ -22,6 +24,10 @@ public class Zeton {
 					sosedi.add(new Koordinati(x+i, y+j));
 			}
 		}
+	}
+	
+	public void obkoli() {
+		this.obkoljen = true;
 	}
 	
 	public void spremeniBarvo(Polje p) {

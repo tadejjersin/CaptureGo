@@ -1,25 +1,16 @@
 package gui;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-
-import javax.swing.JColorChooser;
-import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class Okno extends JFrame implements ActionListener {
-	protected Platno platno;
+	public Platno platno;
 	private JMenuItem menuIgralecIgralec;
 	private JMenuItem menuRacIgralec;
 	private JMenuItem menuIgralecRac;
@@ -59,9 +50,9 @@ public class Okno extends JFrame implements ActionListener {
 		if (objekt == menuIgralecIgralec) {
 			}
 		else if (objekt == menuRacIgralec) {
-		}
+			}
 		else if (objekt == menuIgralecRac) {
-		}
+			}
 		
 	}
 

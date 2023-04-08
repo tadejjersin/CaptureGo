@@ -10,9 +10,9 @@ import java.util.Set;
 import splosno.Poteza;
 
 public class Igra {
-	protected Map<Koordinati, Zeton> mreza;
+	public Map<Koordinati, Zeton> mreza;
 	protected Igralec na_potezi;
-	protected Set<SkupinaZetonov> skupine_zetonov;
+	public Set<SkupinaZetonov> skupine_zetonov;
 	public int dimMreze;
 	
 	public Igra() {

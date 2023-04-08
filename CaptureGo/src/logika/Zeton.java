@@ -4,11 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Zeton {
-	protected Koordinati koordinati;
+	public Koordinati koordinati;
 	protected Set<Koordinati> sosedi;
 	protected Polje polje;
 	protected boolean obkoljen;
 	protected int dim_mreze;
+	public Polje barva;
 	
 	public Zeton(int x, int y) {
 		koordinati = new Koordinati(x, y);

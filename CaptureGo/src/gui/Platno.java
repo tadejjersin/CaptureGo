@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.HashSet;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.swing.JPanel;
@@ -20,6 +21,7 @@ import logika.Koordinati;
 import logika.Polje;
 import logika.SkupinaZetonov;
 import logika.Zeton;
+import splosno.Poteza;
 
 public class Platno extends JPanel implements MouseListener, MouseMotionListener {
 	
@@ -43,7 +45,7 @@ public class Platno extends JPanel implements MouseListener, MouseMotionListener
 	
 	public Platno(int x, int y) {
 		super();
-		igra = null;
+		igra = new Igra();
 		setPreferredSize(new Dimension(x,y));
 		dimPolja = min(x,y)/(igra.dimMreze + 2);
 		barvaMreze = Color.BLACK;
@@ -80,46 +82,51 @@ public class Platno extends JPanel implements MouseListener, MouseMotionListener
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		setBackground(new Color(230,188,132));
 		
-		//narisemo mrezo
+		//narišemo mrežo
 		Graphics2D g2 = (Graphics2D) g;
 		g.setColor(barvaMreze);
 		g2.setStroke(debelinaRobaMreze);
 		int d = igra.dimMreze;
 		for (int i = 0; i < igra.dimMreze; i++) {
 			for (int j = 0; j < igra.dimMreze; j++) {
-				g.drawLine(i+1, dimPolja, i+1, dimPolja*(d));
-				g.drawLine(dimPolja, j+1, dimPolja*(d), j+1);
+				g.drawLine((i+1)*dimPolja, dimPolja, (i+1)*dimPolja, dimPolja*(d));
+				g.drawLine(dimPolja, (j+1)*dimPolja, dimPolja*(d), (j+1)*dimPolja);
 			}
+		}
+		
+		//narišemo mesta fore
+		if (igra.dimMreze == 9) {
+			g.fillOval(3*dimPolja-5, 3*dimPolja-5, 10, 10);
+			g.fillOval(3*dimPolja-5, 7*dimPolja-5, 10, 10);
+			g.fillOval(7*dimPolja-5, 3*dimPolja-5, 10, 10);
+			g.fillOval(7*dimPolja-5, 7*dimPolja-5, 10, 10);
+			g.fillOval(5*dimPolja-5, 5*dimPolja-5, 10, 10);
 		}
 		
 		//narisemo žetone
-		for (SkupinaZetonov s: this.igra.skupine_zetonov) {
-			if (s.barva == Polje.CRNO) {
+		for (Entry<Koordinati, Zeton> entry: this.igra.mreza.entrySet()) {
+			Zeton o = entry.getValue();
+			int x = o.koordinati.getX();
+			int y = o.koordinati.getY();
+			if (o.barva == Polje.CRNO) {
 				g.setColor(barvaCrnih);
-				for (Zeton z: s.skupina) {
-					int x = z.koordinati.getX();
-					int y = z.koordinati.getY();
-					g.fillOval(x, y, round(polmer), round(polmer));
+				g.fillOval(x, y, round(polmer), round(polmer));
 				}
-			}
-			else {
+			else if (o.barva == Polje.BELO) {
 				g.setColor(barvaBelih);
-				for (Zeton z: s.skupina) {
-					int x = z.koordinati.getX();
-					int y = z.koordinati.getY();
-					g.fillOval(x, y, round(polmer), round(polmer));
+				g.fillOval(x, y, round(polmer), round(polmer));
 				}
-			}
 		}
 		
-		g2.setStroke(debelinaRobaUjetih);
-		g.setColor(barvaRobaUjetih);
+		//g2.setStroke(debelinaRobaUjetih);
+		//g.setColor(barvaRobaUjetih);
 		//obrobimo obkoljene
-		for (Zeton z: this.igra.obkoljena.skupina) {
-			HashSet<Koordinati> pobarvane = new HashSet<Koordinati>();
-			for (Zeton o: z.
-		}
+		//for (Zeton z: this.igra.obkoljena.skupina) {
+		//	HashSet<Koordinati> pobarvane = new HashSet<Koordinati>();
+		//	for (Zeton o: z.
+		//}
 		repaint();
 	}
 	@Override
@@ -134,7 +141,16 @@ public class Platno extends JPanel implements MouseListener, MouseMotionListener
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		int klikX = e.getX();
+		int klikY = e.getY();
+		if (klikX < dimPolja/2 || klikX > 10.5*dimPolja) return;
+		if (klikY < dimPolja/2 || klikY > 10.5*dimPolja) return;
+		else {
+			int x = (klikX+(dimPolja/2))/dimPolja;
+			int y = (klikY+(dimPolja/2))/dimPolja;
+			this.igra.narediPotezo(new Poteza(x,y));
+		}
+		repaint();
 		
 	}
 	@Override

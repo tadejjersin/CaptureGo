@@ -78,7 +78,6 @@ public class Platno extends JPanel implements MouseListener {
 			g.setColor(barvaMreze);
 			g2.setStroke(debelinaRobaMreze);
 			// int d = igra.dimMreze;
-		if (Vodja.igra != null) {
 			int d = 9;
 			for (int i = 0; i < d; i++) {
 				for (int j = 0; j < d; j++) {
@@ -95,7 +94,8 @@ public class Platno extends JPanel implements MouseListener {
 				g.fillOval(7*dimPolja-5, 7*dimPolja-5, 10, 10);
 				g.fillOval(5*dimPolja-5, 5*dimPolja-5, 10, 10);
 			}
-			
+			if (Vodja.igra != null) {
+			g2.setStroke(debelinaRobaUjetih);
 			//narišemo žetone
 			for (Entry<Koordinati, Zeton> entry: Vodja.igra.mreza.entrySet()) {
 				Zeton o = entry.getValue();
@@ -104,11 +104,18 @@ public class Platno extends JPanel implements MouseListener {
 				if (o.polje() == Polje.CRNO) {
 					g.setColor(barvaCrnih);
 					g.fillOval(round(dimPolja*x-polmer/2), round(dimPolja*y-polmer/2), round(polmer), round(polmer));
+					if (o.obkoljen()) g2.setColor(barvaRobaUjetih);
+					else g2.setColor(barvaRobaTrenutnega);
+					g2.drawOval(round(dimPolja*x-polmer/2), round(dimPolja*y-polmer/2), round(polmer), round(polmer));
 					}
 				else if (o.polje() == Polje.BELO) {
 					g.setColor(barvaBelih);
 					g.fillOval(round(dimPolja*x-polmer/2), round(dimPolja*y-polmer/2), round(polmer), round(polmer));
+					if (o.obkoljen()) g2.setColor(barvaRobaUjetih);
+					else g2.setColor(barvaRobaTrenutnega);
+					g2.drawOval(round(dimPolja*x-polmer/2), round(dimPolja*y-polmer/2), round(polmer), round(polmer));
 					}
+				}
 			}
 			
 			//g2.setStroke(debelinaRobaUjetih);
@@ -119,8 +126,8 @@ public class Platno extends JPanel implements MouseListener {
 			//	for (Zeton o: z.
 			//}
 		repaint();
-		}
 	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (Vodja.clovekNaVrsti) {
@@ -131,6 +138,7 @@ public class Platno extends JPanel implements MouseListener {
 			else {
 				int x = (klikX+(dimPolja/2))/dimPolja-1;
 				int y = (klikY+(dimPolja/2))/dimPolja-1;
+				System.out.println(x + " " + y);
 				Vodja.igrajClovekovoPotezo(new Poteza(x,y));
 			}
 		}

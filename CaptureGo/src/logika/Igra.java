@@ -96,9 +96,7 @@ public class Igra {
 		if (zeton.polje == Polje.PRAZNO) {
 			zeton.spremeniBarvo(na_potezi.polje());
 			System.out.println(zeton.polje);
-			mreza.put(k, zeton);
 			SkupinaZetonov s = new SkupinaZetonov(zeton);
-			skupine_zetonov.add(s);
 			for (Koordinati l : zeton.sosedi) {
 				Zeton nov_zeton = mreza.get(l);
 				if (nov_zeton.polje == na_potezi.polje()) {
@@ -106,6 +104,8 @@ public class Igra {
 					while (iter.hasNext()) {
 						SkupinaZetonov sk = iter.next();
 						if (sk.skupina.contains(nov_zeton)) {
+							System.out.println(sk);
+							System.out.println();
 							for (Zeton z : sk.skupina) {
 								s.skupina.add(z);
 							}
@@ -114,9 +114,12 @@ public class Igra {
 					}
 				}
 			}
-			
+			skupine_zetonov.add(s);
 			
 			na_potezi = na_potezi.nasprotnik();
+			for (SkupinaZetonov r : skupine_zetonov) {
+				System.out.println(r);
+			}
 			return true;
 		}
 		return false;

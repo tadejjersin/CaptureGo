@@ -17,5 +17,10 @@ public class SkupinaZetonov {
 		skupina.add(zeton);
 	}
 	
-	
+	@Override
+	public String toString() {
+		String s = "";
+		for (Zeton z : skupina) s += z.toString();
+		return "SKUPINA " + s;
+	}
 }

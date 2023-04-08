@@ -19,9 +19,11 @@ public class Zeton {
 		
 		int[] arr = {1, -1};
 		for (int i : arr) {
-			for (int j : arr) {
-				if (0 <= (x+i) && (x+1) <= (dim_mreze-1) && (y+j) <= (dim_mreze-1) && 0 <= (y+j)) 
-					sosedi.add(new Koordinati(x+i, y+j));
+			if (x+i < 9 && x+i >= 0) {
+				sosedi.add(new Koordinati(x + i, y));
+			}
+			if (y+i < 9 && y+i >= 0) {
+				sosedi.add(new Koordinati(x, y + i));
 			}
 		}
 	}
@@ -30,12 +32,21 @@ public class Zeton {
 		return polje;
 	}
 	
+	public boolean obkoljen() {
+		return obkoljen;
+	}
+	
 	public void obkoli() {
 		this.obkoljen = true;
 	}
 	
 	public void spremeniBarvo(Polje p) {
 		this.polje = p;
+	}
+	
+	@Override
+	public String toString() {
+		return "[ZETON b=" + polje + " k=" + koordinati + "]";
 	}
 	
 }

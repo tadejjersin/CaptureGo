@@ -105,18 +105,18 @@ public class Platno extends JPanel implements MouseListener, MouseMotionListener
 			g.fillOval(5*dimPolja-5, 5*dimPolja-5, 10, 10);
 		}
 		
-		//narisemo žetone
+		//narišemo žetone
 		for (Entry<Koordinati, Zeton> entry: this.igra.mreza.entrySet()) {
 			Zeton o = entry.getValue();
 			int x = o.koordinati.getX();
 			int y = o.koordinati.getY();
 			if (o.barva == Polje.CRNO) {
 				g.setColor(barvaCrnih);
-				g.fillOval(x, y, round(polmer), round(polmer));
+				g.fillOval(round(dimPolja*x-polmer/2), round(dimPolja*y-polmer/2), round(polmer), round(polmer));
 				}
 			else if (o.barva == Polje.BELO) {
 				g.setColor(barvaBelih);
-				g.fillOval(x, y, round(polmer), round(polmer));
+				g.fillOval(round(dimPolja*x-polmer/2), round(dimPolja*y-polmer/2), round(polmer), round(polmer));
 				}
 		}
 		

@@ -8,6 +8,11 @@ public enum Igralec {
 	}
 	
 	public Polje polje() {
-		return (this == BELI ? Polje.CRNO : Polje.BELO);
+		return (this == BELI ? Polje.BELO : Polje.CRNO);
+	}
+	
+	@Override
+	public String toString() {
+		return (this == BELI ? "beli" : "črni");
 	}
 }

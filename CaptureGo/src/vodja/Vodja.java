@@ -19,12 +19,12 @@ public class Vodja {
 	public static Igra igra = null;
 	public static boolean clovekNaVrsti = false;
 		
-	public static void igramoNovoIgro () {
-		igra = new Igra ();
-		igramo ();
+	public static void igrajNovoIgro () {
+		igra = new Igra();
+		igraj ();
 	}
-	public static void igramo () {
-		okno.platno.osveziGUI();
+	public static void igraj () {
+		okno.osveziGUI();
 		switch (igra.stanje()) {
 		case ZMAGA_CRNI: 
 		case ZMAGA_BELI: 
@@ -70,7 +70,7 @@ public class Vodja {
 				int randomIndex = random.nextInt(moznePoteze.size());
 				Poteza poteza = moznePoteze.get(randomIndex);
 				igra.narediPotezo(poteza);
-				igramo ();	
+				igraj();	
 			}
 		};
 		worker.execute();	
@@ -80,7 +80,7 @@ public class Vodja {
 	public static void igrajClovekovoPotezo(Poteza poteza) {
 		if (igra.narediPotezo(poteza)) {
 			clovekNaVrsti = false;
-			igramo ();
+			igraj();
 		}
 	}
 

@@ -15,10 +15,10 @@ public class Igra {
 	public Map<Koordinati, Zeton> mreza;
 	public Igralec na_potezi;
 	public Set<SkupinaZetonov> skupine_zetonov;
-	public int dimMreze;
+	//public int dimMreze;
 	
 	public Igra() {
-		dimMreze = 9;
+		//dimMreze = 9;
 		mreza = new HashMap<Koordinati, Zeton>();
 		na_potezi = Igralec.CRNI;
 		skupine_zetonov = new HashSet<SkupinaZetonov>();
@@ -29,9 +29,11 @@ public class Igra {
 		}
 	}
 	
-	public Igralec na_vrsti() {
+	public Igralec naPotezi() {
 		return na_potezi;
 	}
+	
+	
 	
 	public Stanje stanje() { 
 		SkupinaZetonov obkoljena = null;
@@ -93,6 +95,7 @@ public class Igra {
 		Zeton zeton = mreza.get(k);
 		if (zeton.polje == Polje.PRAZNO) {
 			zeton.spremeniBarvo(na_potezi.polje());
+			System.out.println(zeton.polje);
 			mreza.put(k, zeton);
 			SkupinaZetonov s = new SkupinaZetonov(zeton);
 			skupine_zetonov.add(s);
@@ -123,7 +126,7 @@ public class Igra {
 		LinkedList<Poteza> moznePoteze = new LinkedList<Poteza>();
 		for (Entry<Koordinati, Zeton> entry: this.mreza.entrySet()) {
 			Zeton o = entry.getValue();
-			if (o.barva == Polje.PRAZNO) {
+			if (o.polje == Polje.PRAZNO) {
 				int x = o.koordinati.getX();
 				int y = o.koordinati.getY();
 				moznePoteze.add(new Poteza(x,y));

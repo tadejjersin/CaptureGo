@@ -9,7 +9,6 @@ public class Zeton {
 	protected Polje polje;
 	protected boolean obkoljen;
 	protected int dim_mreze;
-	public Polje barva;
 	
 	public Zeton(int x, int y) {
 		koordinati = new Koordinati(x, y);
@@ -25,6 +24,10 @@ public class Zeton {
 					sosedi.add(new Koordinati(x+i, y+j));
 			}
 		}
+	}
+	
+	public Polje polje() {
+		return polje;
 	}
 	
 	public void obkoli() {

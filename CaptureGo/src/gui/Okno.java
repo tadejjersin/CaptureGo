@@ -1,12 +1,21 @@
 package gui;
 
-import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.EnumMap;
+
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+import logika.Igralec;
+import vodja.Vodja;
+import vodja.VrstaIgralca;
 
 @SuppressWarnings("serial")
 public class Okno extends JFrame implements ActionListener {
@@ -14,12 +23,34 @@ public class Okno extends JFrame implements ActionListener {
 	private JMenuItem menuIgralecIgralec;
 	private JMenuItem menuRacIgralec;
 	private JMenuItem menuIgralecRac;
+	private JLabel status;
 	
 	public Okno() {
 		super();
 		setTitle("Capture-GO");
-		this.platno = new Platno(800, 800);
-		add(platno);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setLayout(new GridBagLayout());
+		
+		platno = new Platno(800, 800);
+		GridBagConstraints platno_layout = new GridBagConstraints();
+		platno_layout.gridx = 0;
+		platno_layout.gridy = 0;
+		platno_layout.fill = GridBagConstraints.BOTH;
+		platno_layout.weightx = 1.0;
+		platno_layout.weighty = 1.0;
+		getContentPane().add(platno, platno_layout);
+		
+		status = new JLabel();
+		status.setFont(new Font(status.getFont().getName(),
+			    status.getFont().getStyle(),
+			    20));
+		GridBagConstraints status_layout = new GridBagConstraints();
+		status_layout.gridx = 0;
+		status_layout.gridy = 1;
+		status_layout.anchor = GridBagConstraints.CENTER;
+		getContentPane().add(status, status_layout);
+		
+		status.setText("Izberite igro!");
 	
 		JMenuBar menubar = new JMenuBar();
 		setJMenuBar(menubar);
@@ -48,12 +79,36 @@ public class Okno extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object objekt = e.getSource();
 		if (objekt == menuIgralecIgralec) {
+			Vodja.vrstaIgralca = new EnumMap<Igralec, VrstaIgralca>(Igralec.class);
+			Vodja.vrstaIgralca.put(Igralec.CRNI, VrstaIgralca.C);
+			Vodja.vrstaIgralca.put(Igralec.BELI, VrstaIgralca.C);
+			Vodja.igrajNovoIgro();
 			}
 		else if (objekt == menuRacIgralec) {
 			}
 		else if (objekt == menuIgralecRac) {
 			}
 		
+	}
+	
+	public void osveziGUI() {
+		if (Vodja.igra == null) status.setText("Izberi igro");
+		else {
+			switch(Vodja.igra.stanje()) {
+			case NEODLOCENO:
+				status.setText("Neodločeno!");
+				break;
+			case ZMAGA_BELI:
+				status.setText("Zmagal je beli");
+				break;
+			case ZMAGA_CRNI:
+				status.setText("Zmagal je črni");
+				break;
+			case V_TEKU:
+				status.setText("Na potezi je " + Vodja.igra.naPotezi() + " - " + Vodja.vrstaIgralca.get(Vodja.igra.naPotezi()));
+			}
+		}
+		platno.repaint();
 	}
 
 

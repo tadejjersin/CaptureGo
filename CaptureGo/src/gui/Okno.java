@@ -85,8 +85,16 @@ public class Okno extends JFrame implements ActionListener {
 			Vodja.igrajNovoIgro();
 			}
 		else if (objekt == menuRacIgralec) {
+			Vodja.vrstaIgralca = new EnumMap<Igralec, VrstaIgralca>(Igralec.class);
+			Vodja.vrstaIgralca.put(Igralec.CRNI, VrstaIgralca.R);
+			Vodja.vrstaIgralca.put(Igralec.BELI, VrstaIgralca.C);
+			Vodja.igrajNovoIgro();
 			}
 		else if (objekt == menuIgralecRac) {
+			Vodja.vrstaIgralca = new EnumMap<Igralec, VrstaIgralca>(Igralec.class);
+			Vodja.vrstaIgralca.put(Igralec.CRNI, VrstaIgralca.C);
+			Vodja.vrstaIgralca.put(Igralec.BELI, VrstaIgralca.R);
+			Vodja.igrajNovoIgro();
 			}
 		
 	}

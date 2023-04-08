@@ -3,15 +3,17 @@ package logika;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+import java.util.Map.Entry;
 
 import splosno.Poteza;
 
 public class Igra {
 	public Map<Koordinati, Zeton> mreza;
-	protected Igralec na_potezi;
+	public Igralec na_potezi;
 	public Set<SkupinaZetonov> skupine_zetonov;
 	public int dimMreze;
 	
@@ -115,5 +117,18 @@ public class Igra {
 			return true;
 		}
 		return false;
+	}
+
+	public List<Poteza> poteze() {
+		LinkedList<Poteza> moznePoteze = new LinkedList<Poteza>();
+		for (Entry<Koordinati, Zeton> entry: this.mreza.entrySet()) {
+			Zeton o = entry.getValue();
+			if (o.barva == Polje.PRAZNO) {
+				int x = o.koordinati.getX();
+				int y = o.koordinati.getY();
+				moznePoteze.add(new Poteza(x,y));
+			}
+		}
+		return moznePoteze; 
 	}
 }

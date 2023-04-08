@@ -99,8 +99,8 @@ public class Platno extends JPanel implements MouseListener {
 			//narišemo žetone
 			for (Entry<Koordinati, Zeton> entry: Vodja.igra.mreza.entrySet()) {
 				Zeton o = entry.getValue();
-				int x = o.koordinati.getX();
-				int y = o.koordinati.getY();
+				int x = o.koordinati.getX()+1;
+				int y = o.koordinati.getY()+1;
 				if (o.polje() == Polje.CRNO) {
 					g.setColor(barvaCrnih);
 					g.fillOval(round(dimPolja*x-polmer/2), round(dimPolja*y-polmer/2), round(polmer), round(polmer));
@@ -129,11 +129,10 @@ public class Platno extends JPanel implements MouseListener {
 			if (klikX < dimPolja/2 || klikX > 10.5*dimPolja) return;
 			if (klikY < dimPolja/2 || klikY > 10.5*dimPolja) return;
 			else {
-				int x = (klikX+(dimPolja/2))/dimPolja;
-				int y = (klikY+(dimPolja/2))/dimPolja;
+				int x = (klikX+(dimPolja/2))/dimPolja-1;
+				int y = (klikY+(dimPolja/2))/dimPolja-1;
 				Vodja.igrajClovekovoPotezo(new Poteza(x,y));
 			}
-			repaint();
 		}
 	}
 	@Override

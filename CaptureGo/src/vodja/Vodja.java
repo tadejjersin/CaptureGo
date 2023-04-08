@@ -56,7 +56,7 @@ public class Vodja {
 //	}
 //	
 	public static void igrajRacunalnikovoPotezo() {
-		Igra zacetkaIgra = igra;
+		Igra zacetnaIgra = igra;
 		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void> () {
 			@Override
 			protected Void doInBackground() {
@@ -65,10 +65,9 @@ public class Vodja {
 			}
 			@Override
 			protected void done () {
-				if (igra != zacetkaIgra) return;
-				List<Poteza> moznePoteze = igra.poteze();
-				int randomIndex = random.nextInt(moznePoteze.size());
-				Poteza poteza = moznePoteze.get(randomIndex);
+				if (igra != zacetnaIgra) return;
+				int randomIndex = random.nextInt(igra.poteze().size());
+				Poteza poteza = igra.poteze().get(randomIndex);
 				igra.narediPotezo(poteza);
 				igraj();	
 			}
@@ -78,7 +77,8 @@ public class Vodja {
 		
 		
 	public static void igrajClovekovoPotezo(Poteza poteza) {
-		if (igra.narediPotezo(poteza)) {
+		if (clovekNaVrsti && igra.poteze().contains(poteza)) {
+			igra.narediPotezo(poteza);
 			clovekNaVrsti = false;
 			igraj();
 		}

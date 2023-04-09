@@ -118,13 +118,6 @@ public class Platno extends JPanel implements MouseListener {
 				}
 			}
 			
-			//g2.setStroke(debelinaRobaUjetih);
-			//g.setColor(barvaRobaUjetih);
-			//obrobimo obkoljene
-			//for (Zeton z: this.igra.obkoljena.skupina) {
-			//	HashSet<Koordinati> pobarvane = new HashSet<Koordinati>();
-			//	for (Zeton o: z.
-			//}
 		repaint();
 	}
 	
@@ -138,7 +131,6 @@ public class Platno extends JPanel implements MouseListener {
 			else {
 				int x = (klikX+(dimPolja/2))/dimPolja-1;
 				int y = (klikY+(dimPolja/2))/dimPolja-1;
-				System.out.println(x + " " + y);
 				Vodja.igrajClovekovoPotezo(new Poteza(x,y));
 			}
 		}

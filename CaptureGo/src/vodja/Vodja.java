@@ -29,7 +29,7 @@ public class Vodja {
 		case ZMAGA_CRNI: 
 		case ZMAGA_BELI: 
 		case NEODLOCENO: 
-			return; // odhajamo iz metode igramo
+			return; 
 		case V_TEKU: 
 			Igralec igralec = igra.na_potezi;
 			VrstaIgralca vrstaNaPotezi = vrstaIgralca.get(igralec);
@@ -46,21 +46,13 @@ public class Vodja {
 	
 	private static Random random = new Random ();
 
-//	public static void igrajRacunalnikovoPotezo() {
-//		List<Poteza> moznePoteze = igra.poteze();
-//		try {TimeUnit.SECONDS.sleep(2);} catch (Exception e) {};
-//		int randomIndex = random.nextInt(moznePoteze.size());
-//		Poteza poteza = moznePoteze.get(randomIndex);
-//		igra.odigraj(poteza);
-//		igramo ();
-//	}
-//	
+
 	public static void igrajRacunalnikovoPotezo() {
 		Igra zacetnaIgra = igra;
 		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void> () {
 			@Override
 			protected Void doInBackground() {
-				try {TimeUnit.SECONDS.sleep(2);} catch (Exception e) {};	
+				try {TimeUnit.MILLISECONDS.sleep(100);} catch (Exception e) {};	// za testiranje je boljše če je hitrješi
 				return null;
 			}
 			@Override

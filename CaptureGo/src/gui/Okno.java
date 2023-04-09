@@ -23,6 +23,7 @@ public class Okno extends JFrame implements ActionListener {
 	private JMenuItem menuIgralecIgralec;
 	private JMenuItem menuRacIgralec;
 	private JMenuItem menuIgralecRac;
+	private JMenuItem menuRacRac;
 	private JLabel status;
 	
 	public Okno() {
@@ -60,6 +61,7 @@ public class Okno extends JFrame implements ActionListener {
 		menuIgralecIgralec = dodajMenuItem(menuNovaIgra, "Igralec : igralec");
 		menuRacIgralec = dodajMenuItem(menuNovaIgra, "Računalnik : igralec");
 		menuIgralecRac = dodajMenuItem(menuNovaIgra, "Igralec : računalnik");
+		menuRacRac = dodajMenuItem(menuNovaIgra, "Računalnik : računalnik");
 	}
 	
 	private JMenu dodajMenu(JMenuBar menubar, String naslov) {
@@ -93,6 +95,12 @@ public class Okno extends JFrame implements ActionListener {
 		else if (objekt == menuIgralecRac) {
 			Vodja.vrstaIgralca = new EnumMap<Igralec, VrstaIgralca>(Igralec.class);
 			Vodja.vrstaIgralca.put(Igralec.CRNI, VrstaIgralca.C);
+			Vodja.vrstaIgralca.put(Igralec.BELI, VrstaIgralca.R);
+			Vodja.igrajNovoIgro();
+			}
+		else if (objekt == menuRacRac) {
+			Vodja.vrstaIgralca = new EnumMap<Igralec, VrstaIgralca>(Igralec.class);
+			Vodja.vrstaIgralca.put(Igralec.CRNI, VrstaIgralca.R);
 			Vodja.vrstaIgralca.put(Igralec.BELI, VrstaIgralca.R);
 			Vodja.igrajNovoIgro();
 			}

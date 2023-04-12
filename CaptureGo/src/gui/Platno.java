@@ -48,7 +48,7 @@ public class Platno extends JPanel implements MouseListener {
 		barvaCrnih = Color.BLACK;
 		barvaBelih = Color.WHITE;
 		barvaRobaTrenutnega = Color.YELLOW;
-		debelinaRobaUjetih = new BasicStroke(2);
+		debelinaRobaUjetih = new BasicStroke(5);
 		debelinaRobaMreze = new BasicStroke(1);
 		debelinaRobaTrenutnega = new BasicStroke(1);
 		polmer = 0.8*dimPolja;
@@ -105,14 +105,14 @@ public class Platno extends JPanel implements MouseListener {
 					g.setColor(barvaCrnih);
 					g.fillOval(round(dimPolja*x-polmer/2), round(dimPolja*y-polmer/2), round(polmer), round(polmer));
 					if (o.obkoljen()) g2.setColor(barvaRobaUjetih);
-					else g2.setColor(barvaRobaTrenutnega);
+					//else g2.setColor(barvaRobaTrenutnega);
 					g2.drawOval(round(dimPolja*x-polmer/2), round(dimPolja*y-polmer/2), round(polmer), round(polmer));
 					}
 				else if (o.polje() == Polje.BELO) {
 					g.setColor(barvaBelih);
 					g.fillOval(round(dimPolja*x-polmer/2), round(dimPolja*y-polmer/2), round(polmer), round(polmer));
 					if (o.obkoljen()) g2.setColor(barvaRobaUjetih);
-					else g2.setColor(barvaRobaTrenutnega);
+					//else g2.setColor(barvaRobaTrenutnega);
 					g2.drawOval(round(dimPolja*x-polmer/2), round(dimPolja*y-polmer/2), round(polmer), round(polmer));
 					}
 				}

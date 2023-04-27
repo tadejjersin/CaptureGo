@@ -90,34 +90,25 @@ public class Igra {
 		return true;
 	}
 	
-	
-	@SuppressWarnings({ "static-access", "finally" })
 	public boolean narediPotezo(Poteza poteza) {
 		int x = poteza.getX();
 		int y = poteza.getY();
 		Koordinati k = new Koordinati(x, y);
 		Zeton zeton = mreza.get(k);
 		if (zeton.polje == Polje.PRAZNO) {
-			
-			try {
-				ZvocniEfekti efekt = new ZvocniEfekti("kamen");
-	            efekt.predvajajZvok();
-			}
-			finally {
-				zeton.spremeniBarvo(na_potezi.polje());
-				SkupinaZetonov s = new SkupinaZetonov(zeton);
-				for (Koordinati l : zeton.sosedi) {
-					Zeton nov_zeton = mreza.get(l);
-					if (nov_zeton.polje == na_potezi.polje()) {
-						Iterator<SkupinaZetonov> iter = skupine_zetonov.iterator();
-						while (iter.hasNext()) {
-							SkupinaZetonov sk = iter.next();
-							if (sk.skupina.contains(nov_zeton)) {
-								for (Zeton z : sk.skupina) {
-									s.skupina.add(z);
-								}
-								iter.remove();
+			zeton.spremeniBarvo(na_potezi.polje());
+			SkupinaZetonov s = new SkupinaZetonov(zeton);
+			for (Koordinati l : zeton.sosedi) {
+				Zeton nov_zeton = mreza.get(l);
+				if (nov_zeton.polje == na_potezi.polje()) {
+					Iterator<SkupinaZetonov> iter = skupine_zetonov.iterator();
+					while (iter.hasNext()) {
+						SkupinaZetonov sk = iter.next();
+						if (sk.skupina.contains(nov_zeton)) {
+							for (Zeton z : sk.skupina) {
+								s.skupina.add(z);
 							}
+							iter.remove();
 						}
 					}
 				}

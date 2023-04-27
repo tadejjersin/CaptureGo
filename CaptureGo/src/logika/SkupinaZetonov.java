@@ -13,6 +13,12 @@ public class SkupinaZetonov {
 		this.barva = z.polje;
 	}
 	
+	public SkupinaZetonov(SkupinaZetonov s) {
+		barva = s.barva;
+		skupina = new HashSet<Zeton>();
+		for (Zeton z : s.skupina) skupina.add(new Zeton(z));
+	}
+	
 	public void dodajZeton(Zeton zeton) {
 		skupina.add(zeton);
 	}

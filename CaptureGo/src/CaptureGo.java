@@ -9,5 +9,7 @@ public class CaptureGo {
 		okno.setVisible(true);
 		Vodja.okno = okno;
 	}
-
+	
+	
 }
+ 

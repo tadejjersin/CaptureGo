@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class Zeton {
 	public Koordinati koordinati;
-	protected Set<Koordinati> sosedi;
+	public Set<Koordinati> sosedi;
 	protected Polje polje;
 	protected boolean obkoljen;
 	protected int dim_mreze;
@@ -26,6 +26,15 @@ public class Zeton {
 				sosedi.add(new Koordinati(x, y + i));
 			}
 		}
+	}
+	
+	//naredi kopijo zetona
+	public Zeton(Zeton zeton) { 
+		koordinati = zeton.koordinati;
+		obkoljen = zeton.obkoljen;
+		polje = zeton.polje;
+		sosedi = zeton.sosedi;
+		dim_mreze = 9;
 	}
 	
 	public Polje polje() {

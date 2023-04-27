@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -32,6 +31,22 @@ public class Igra {
 		}
 	}
 	
+	// naredi kopijo igre
+	public Igra(Map<Koordinati, Zeton> mreza, Igralec na_potezi, Set<SkupinaZetonov> skupine_zetonov) {
+		this.mreza = new HashMap<Koordinati, Zeton>();
+		this.skupine_zetonov = new HashSet<SkupinaZetonov>();
+		this.na_potezi = na_potezi;
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				this.mreza.put(new Koordinati(i, j), new Zeton(mreza.get(new Koordinati(i, j))));
+			}
+		}
+		for (SkupinaZetonov s : skupine_zetonov) {
+			this.skupine_zetonov.add(new SkupinaZetonov(s));
+		}
+	}
+	
+	
 	public Igralec naPotezi() {
 		return na_potezi;
 	}
@@ -47,9 +62,11 @@ public class Igra {
 				case BELO:
 					if (na_potezi.polje() == Polje.BELO) obkoljene_druga_barva.add(sk);
 					else obkoljena = sk;
+					break;
 				case CRNO:
 					if (na_potezi.polje() == Polje.CRNO) obkoljene_druga_barva.add(sk);
 					else obkoljena = sk;
+					break;
 				case PRAZNO:
 					assert false;
 				}
@@ -121,14 +138,16 @@ public class Igra {
 		return false;
 	}
 
-	public List<Poteza> poteze() {
+	public LinkedList<Poteza> poteze() {
 		LinkedList<Poteza> moznePoteze = new LinkedList<Poteza>();
-		for (Entry<Koordinati, Zeton> entry: this.mreza.entrySet()) {
-			Zeton o = entry.getValue();
-			if (o.polje == Polje.PRAZNO) {
-				int x = o.koordinati.getX();
-				int y = o.koordinati.getY();
-				moznePoteze.add(new Poteza(x,y));
+		if (stanje() == Stanje.V_TEKU) {
+			for (Entry<Koordinati, Zeton> entry: this.mreza.entrySet()) {
+				Zeton o = entry.getValue();
+				if (o.polje == Polje.PRAZNO) {
+					int x = o.koordinati.getX();
+					int y = o.koordinati.getY();
+					moznePoteze.add(new Poteza(x,y));
+				}
 			}
 		}
 		return moznePoteze; 

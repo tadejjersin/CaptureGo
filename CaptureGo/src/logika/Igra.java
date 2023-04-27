@@ -6,9 +6,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
-
-import gui.ZvocniEfekti;
-
 import java.util.Map.Entry;
 
 import splosno.Poteza;
@@ -107,6 +104,7 @@ public class Igra {
 		return true;
 	}
 	
+	
 	public boolean narediPotezo(Poteza poteza) {
 		int x = poteza.getX();
 		int y = poteza.getY();
@@ -129,11 +127,11 @@ public class Igra {
 						}
 					}
 				}
-				skupine_zetonov.add(s);
-				
-				na_potezi = na_potezi.nasprotnik();
-				return true;
 			}
+			skupine_zetonov.add(s);
+			
+			na_potezi = na_potezi.nasprotnik();
+			return true;
 		}
 		return false;
 	}

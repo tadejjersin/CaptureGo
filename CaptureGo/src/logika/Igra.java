@@ -7,6 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import gui.ZvocniEfekti;
+
 import java.util.Map.Entry;
 
 import splosno.Poteza;
@@ -88,33 +91,41 @@ public class Igra {
 	}
 	
 	
+	@SuppressWarnings({ "static-access", "finally" })
 	public boolean narediPotezo(Poteza poteza) {
 		int x = poteza.getX();
 		int y = poteza.getY();
 		Koordinati k = new Koordinati(x, y);
 		Zeton zeton = mreza.get(k);
 		if (zeton.polje == Polje.PRAZNO) {
-			zeton.spremeniBarvo(na_potezi.polje());
-			SkupinaZetonov s = new SkupinaZetonov(zeton);
-			for (Koordinati l : zeton.sosedi) {
-				Zeton nov_zeton = mreza.get(l);
-				if (nov_zeton.polje == na_potezi.polje()) {
-					Iterator<SkupinaZetonov> iter = skupine_zetonov.iterator();
-					while (iter.hasNext()) {
-						SkupinaZetonov sk = iter.next();
-						if (sk.skupina.contains(nov_zeton)) {
-							for (Zeton z : sk.skupina) {
-								s.skupina.add(z);
+			
+			try {
+				ZvocniEfekti efekt = new ZvocniEfekti("kamen");
+	            efekt.predvajajZvok();
+			}
+			finally {
+				zeton.spremeniBarvo(na_potezi.polje());
+				SkupinaZetonov s = new SkupinaZetonov(zeton);
+				for (Koordinati l : zeton.sosedi) {
+					Zeton nov_zeton = mreza.get(l);
+					if (nov_zeton.polje == na_potezi.polje()) {
+						Iterator<SkupinaZetonov> iter = skupine_zetonov.iterator();
+						while (iter.hasNext()) {
+							SkupinaZetonov sk = iter.next();
+							if (sk.skupina.contains(nov_zeton)) {
+								for (Zeton z : sk.skupina) {
+									s.skupina.add(z);
+								}
+								iter.remove();
 							}
-							iter.remove();
 						}
 					}
 				}
+				skupine_zetonov.add(s);
+				
+				na_potezi = na_potezi.nasprotnik();
+				return true;
 			}
-			skupine_zetonov.add(s);
-			
-			na_potezi = na_potezi.nasprotnik();
-			return true;
 		}
 		return false;
 	}

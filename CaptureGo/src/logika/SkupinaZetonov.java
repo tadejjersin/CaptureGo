@@ -23,6 +23,13 @@ public class SkupinaZetonov {
 		skupina.add(zeton);
 	}
 	
+	public boolean isIn(Zeton z) {
+		for (Zeton e : skupina) {
+			if (z.equals(e)) return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		String s = "";

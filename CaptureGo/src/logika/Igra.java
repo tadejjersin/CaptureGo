@@ -119,7 +119,7 @@ public class Igra {
 					Iterator<SkupinaZetonov> iter = skupine_zetonov.iterator();
 					while (iter.hasNext()) {
 						SkupinaZetonov sk = iter.next();
-						if (sk.skupina.contains(nov_zeton)) {
+						if (sk.isIn(nov_zeton)) {
 							for (Zeton z : sk.skupina) {
 								s.skupina.add(z);
 							}

@@ -1,0 +1,70 @@
+package inteligenca;
+
+import java.util.List;
+
+import logika.Igra;
+import logika.Igralec;
+import logika.Koordinati;
+import logika.Polje;
+import logika.SkupinaZetonov;
+import logika.Zeton;
+import splosno.Poteza;
+
+public class Alphabeta {
+	
+	private int globina;
+	
+	public Alphabeta(int globina) {
+		this.globina = globina;
+	}
+	
+	// crni igralec maksimizira, beli minimalizira
+	public Poteza izberiPotezo(Igra igra) {
+		return alphabeta(igra, this.globina, Integer.MIN_VALUE, Integer.MAX_VALUE, igra.naPotezi() == Igralec.CRNI).poteza;
+	}
+	
+	public OcenjenaPoteza alphabeta(Igra igra, int globina, int alpha, int beta, boolean max) {
+		List<Poteza> poteze = igra.poteze();
+		switch (igra.stanje()) {
+		case NEODLOCENO:
+			return new OcenjenaPoteza(null, 0);
+		case ZMAGA_BELI:
+			return new OcenjenaPoteza(null, Integer.MIN_VALUE);
+		case ZMAGA_CRNI:
+			return new OcenjenaPoteza(null, Integer.MAX_VALUE);
+		default:
+			if (globina == 0) return new OcenjenaPoteza(null, OceniPozicijo.oceniPozicijo(igra));
+			if (max) {
+				int maxEval = Integer.MIN_VALUE;
+				Poteza o = poteze.get(0);
+				for (Poteza p : poteze) {
+					Igra kopijaIgre = new Igra(igra.mreza, igra.na_potezi, igra.skupine_zetonov);
+					kopijaIgre.narediPotezo(p);
+					int eval = alphabeta(kopijaIgre, globina - 1, alpha, beta, false).ocena;
+					if (eval > maxEval) {
+						o = p;
+						maxEval = eval;
+					}
+					alpha = Integer.max(alpha, eval);
+					if (beta <= alpha) break;
+				}
+				return new OcenjenaPoteza(o, maxEval);
+			} else {
+				int minEval = Integer.MAX_VALUE;
+				Poteza o = poteze.get(0);
+				for (Poteza p : poteze) {
+					Igra kopijaIgre = new Igra(igra.mreza, igra.na_potezi, igra.skupine_zetonov);
+					kopijaIgre.narediPotezo(p);
+					int eval = alphabeta(kopijaIgre, globina - 1, alpha, beta, true).ocena;
+					if (eval < minEval) {
+						o = p;
+						minEval = eval;
+					}
+					beta = Integer.min(beta, eval);
+					if (beta <= alpha) break;
+				}
+				return new OcenjenaPoteza(o, minEval);
+			}
+		}
+	}
+}

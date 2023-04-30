@@ -58,4 +58,12 @@ public class Zeton {
 		return "[ZETON b=" + polje + " k=" + koordinati + "]";
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) return true;
+		if (!(o instanceof Zeton)) return false;
+		Zeton z = (Zeton) o;
+		return (z.koordinati.equals(this.koordinati) && z.polje.equals(this.polje));
+	}
+	
 }

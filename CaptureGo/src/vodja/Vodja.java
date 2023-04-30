@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.SwingWorker;
 
 import gui.Okno;
+import inteligenca.Alphabeta;
 import logika.Igra;
 import logika.Igralec;
 import splosno.Poteza;
@@ -44,7 +45,7 @@ public class Vodja {
 	}
 	
 	private static Random random = new Random ();
-
+	public static Alphabeta ai = new Alphabeta(2);
 
 	public static void igrajRacunalnikovoPotezo() {
 		Igra zacetnaIgra = igra;
@@ -57,8 +58,7 @@ public class Vodja {
 			@Override
 			protected void done () {
 				if (igra != zacetnaIgra) return;
-				int randomIndex = random.nextInt(igra.poteze().size());
-				Poteza poteza = igra.poteze().get(randomIndex);
+				Poteza poteza = ai.izberiPotezo(igra);
 				igra.narediPotezo(poteza);
 				igraj();	
 			}

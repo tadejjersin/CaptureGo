@@ -1,5 +1,6 @@
 package inteligenca;
 
+import java.util.Collections;
 import java.util.List;
 
 import logika.Igra;
@@ -25,6 +26,7 @@ public class Alphabeta {
 	
 	public OcenjenaPoteza alphabeta(Igra igra, int globina, int alpha, int beta, boolean max) {
 		List<Poteza> poteze = igra.poteze();
+		Collections.sort(poteze, new NewSort(igra));
 		switch (igra.stanje()) {
 		case NEODLOCENO:
 			return new OcenjenaPoteza(null, 0);
@@ -68,3 +70,5 @@ public class Alphabeta {
 		}
 	}
 }
+
+

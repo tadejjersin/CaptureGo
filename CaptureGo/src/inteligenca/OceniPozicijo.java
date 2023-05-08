@@ -15,7 +15,7 @@ public class OceniPozicijo {
 		int n = 0;
 		for (SkupinaZetonov skupinaZet : igra.skupine_zetonov) {
 			Polje barva = skupinaZet.barva;
-			int m = svobodeSkupine(skupinaZet.skupina, barva, igra);
+			int m = tockeSkupine(skupinaZet.skupina, barva, igra);
 			if (barva == Polje.CRNO) {
 				n += m;
 			}
@@ -27,7 +27,7 @@ public class OceniPozicijo {
 		return n;
 	}
 	
-	public static int svobodeSkupine(Set<Zeton> skupina, Polje barva, Igra igra) {
+	public static int tockeSkupine(Set<Zeton> skupina, Polje barva, Igra igra) {
 		Set<Zeton> svobode = new HashSet<Zeton>();
 		for (Zeton zeton : skupina) {
 			for (Koordinati koordSosed : zeton.sosedi) {
@@ -38,6 +38,7 @@ public class OceniPozicijo {
 			}
 		}
 		int n = (int) Math.pow(3, svobode.size());
+		n += skupina.size();
 		return n;
 	}
 	

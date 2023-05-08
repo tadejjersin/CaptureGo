@@ -45,7 +45,7 @@ public class Vodja {
 	}
 	
 	private static Random random = new Random ();
-	public static Alphabeta ai = new Alphabeta(2);
+	public static Alphabeta ai = new Alphabeta(3);
 
 	public static void igrajRacunalnikovoPotezo() {
 		Igra zacetnaIgra = igra;

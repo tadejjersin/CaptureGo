@@ -25,6 +25,9 @@ public class MCTS {
 			leaf.backpropagate(simulationResult);
 			i++;
 		}
+		for (MCTSNode c : root.children) {
+			System.out.println(c.last + " " + c.n() + " " + (c.q(root.na_potezi) / c.n()) + 1.4 * Math.sqrt(Math.log(root.n()) / c.n()) + " " + c.q(root.na_potezi));
+		}
 		return root.bestChild(0).last;
 	}
 	

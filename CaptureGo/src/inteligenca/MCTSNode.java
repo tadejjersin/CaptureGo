@@ -75,7 +75,6 @@ public class MCTSNode extends Igra {
 		while (current_game.stanje() == Stanje.V_TEKU) {
 			LinkedList<Poteza> possibleMoves = current_game.poteze();
 			Poteza move = rollout_policy(possibleMoves);
-			current_game = new Igra(current_game.mreza, current_game.na_potezi, current_game.skupine_zetonov);
 			current_game.narediPotezo(move);
 		}
 		return current_game.stanje();
@@ -117,7 +116,7 @@ public class MCTSNode extends Igra {
 		Double[] weights = new Double[children.size()];
 		for (int i = 0; i < children.size(); i++) {
 			MCTSNode child = children.get(i);
-			double weight = (child.q(this.na_potezi) / child.n()) + c * Math.sqrt(Math.log(n()) / child.n());
+			double weight = (((double) child.q(this.na_potezi)) / ((double) child.n())) + c * Math.sqrt(Math.log(this.n()) / child.n());
 			weights[i] = weight;
 		}
 		double maxValue = 0;
@@ -129,5 +128,18 @@ public class MCTSNode extends Igra {
 			}
 		}
 		return children.get(maxIndex);
+	}
+	
+	@Override
+	public String toString() {
+		String s = "";
+		MCTSNode c = new MCTSNode(this.parent, this.last);
+		while (c.last != null) {
+			s += c.last + " - ";
+			if (parent.last != null) c = new MCTSNode(parent.parent, parent.last);
+			else break;
+		}
+		return s;
+		
 	}
 }

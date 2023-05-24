@@ -37,7 +37,7 @@ public class MCTSNode extends Igra {
 	
 	public MCTSNode(MCTSNode parent, Poteza poteza) {
 		super(parent.mreza, parent.na_potezi, parent.skupine_zetonov);
-		narediPotezo(poteza);
+		odigraj(poteza);
 		this.parent = parent;
 		children = new LinkedList<MCTSNode>();
 		numberOfVisits = 0;
@@ -76,7 +76,7 @@ public class MCTSNode extends Igra {
 			LinkedList<Poteza> possibleMoves = current_game.poteze();
 			Poteza move = rollout_policy(possibleMoves);
 			current_game = new Igra(current_game.mreza, current_game.na_potezi, current_game.skupine_zetonov);
-			current_game.narediPotezo(move);
+			current_game.odigraj(move);
 		}
 		return current_game.stanje();
 	}

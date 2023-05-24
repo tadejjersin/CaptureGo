@@ -45,21 +45,21 @@ public class Vodja {
 	}
 	
 	private static Random random = new Random ();
-	public static Alphabeta ai = new Alphabeta(3);
+	public static Alphabeta ai = new Alphabeta(4);
 
 	public static void igrajRacunalnikovoPotezo() {
 		Igra zacetnaIgra = igra;
 		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void> () {
 			@Override
 			protected Void doInBackground() {
-				try {TimeUnit.MILLISECONDS.sleep(100);} catch (Exception e) {};	// za testiranje je boljše če je hitrješi
+				try {TimeUnit.MILLISECONDS.sleep(10);} catch (Exception e) {};	// za testiranje je boljše če je hitrješi
 				return null;
 			}
 			@Override
 			protected void done () {
 				if (igra != zacetnaIgra) return;
 				Poteza poteza = ai.izberiPotezo(igra);
-				igra.narediPotezo(poteza);
+				igra.odigraj(poteza);
 				igraj();	
 			}
 		};
@@ -69,7 +69,7 @@ public class Vodja {
 		
 	public static void igrajClovekovoPotezo(Poteza poteza) {
 		if (clovekNaVrsti && igra.poteze().contains(poteza)) {
-			igra.narediPotezo(poteza);
+			igra.odigraj(poteza);
 			clovekNaVrsti = false;
 			igraj();
 		}

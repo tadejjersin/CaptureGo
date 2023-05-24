@@ -105,7 +105,7 @@ public class Igra {
 	}
 	
 	
-	public boolean narediPotezo(Poteza poteza) {
+	public boolean odigraj(Poteza poteza) {
 		int x = poteza.getX();
 		int y = poteza.getY();
 		Koordinati k = new Koordinati(x, y);

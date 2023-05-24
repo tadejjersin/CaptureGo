@@ -41,7 +41,7 @@ public class Alphabeta {
 				Poteza o = poteze.get(0);
 				for (Poteza p : poteze) {
 					Igra kopijaIgre = new Igra(igra.mreza, igra.na_potezi, igra.skupine_zetonov);
-					kopijaIgre.narediPotezo(p);
+					kopijaIgre.odigraj(p);
 					int eval = alphabeta(kopijaIgre, globina - 1, alpha, beta, false).ocena;
 					if (eval > maxEval) {
 						o = p;
@@ -56,7 +56,7 @@ public class Alphabeta {
 				Poteza o = poteze.get(0);
 				for (Poteza p : poteze) {
 					Igra kopijaIgre = new Igra(igra.mreza, igra.na_potezi, igra.skupine_zetonov);
-					kopijaIgre.narediPotezo(p);
+					kopijaIgre.odigraj(p);
 					int eval = alphabeta(kopijaIgre, globina - 1, alpha, beta, true).ocena;
 					if (eval < minEval) {
 						o = p;

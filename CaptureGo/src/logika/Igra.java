@@ -49,7 +49,7 @@ public class Igra {
 	}
 	
 	
-	
+	// najprej preveri za nasprotnika, ce umre (preden zamenjamo kdo na potezi!)
 	public Stanje stanje() { 
 		SkupinaZetonov obkoljena = null;
 		Set<SkupinaZetonov> obkoljene_druga_barva = new HashSet<SkupinaZetonov>();

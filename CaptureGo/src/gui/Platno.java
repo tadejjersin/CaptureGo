@@ -99,8 +99,8 @@ public class Platno extends JPanel implements MouseListener {
 			//narišemo žetone
 			for (Entry<Koordinati, Zeton> entry: Vodja.igra.mreza.entrySet()) {
 				Zeton o = entry.getValue();
-				int x = o.koordinati.getX()+1;
-				int y = o.koordinati.getY()+1;
+				int x = o.koordinati.x()+1;
+				int y = o.koordinati.y()+1;
 				if (o.polje() == Polje.CRNO) {
 					g.setColor(barvaCrnih);
 					g.fillOval(round(dimPolja*x-polmer/2), round(dimPolja*y-polmer/2), round(polmer), round(polmer));

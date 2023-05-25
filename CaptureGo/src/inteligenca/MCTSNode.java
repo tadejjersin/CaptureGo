@@ -99,7 +99,6 @@ public class MCTSNode extends Igra {
 			prevResR++;
 			this.results.put(Igralec.CRNI, prevResR);
 			break;
-		case NEODLOCENO:
 		case V_TEKU:
 			break;
 		}

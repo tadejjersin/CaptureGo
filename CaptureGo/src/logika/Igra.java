@@ -14,10 +14,8 @@ public class Igra {
 	public Map<Koordinati, Zeton> mreza;
 	public Igralec na_potezi;
 	public Set<SkupinaZetonov> skupine_zetonov;
-	//public int dimMreze;
 	
 	public Igra() {
-		//dimMreze = 9;
 		mreza = new HashMap<Koordinati, Zeton>();
 		na_potezi = Igralec.CRNI;
 		skupine_zetonov = new HashSet<SkupinaZetonov>();
@@ -88,11 +86,9 @@ public class Igra {
 				return Stanje.ZMAGA_CRNI;
 			}
 		}
-		for (Zeton z : mreza.values()) {
-			if (z.polje == Polje.PRAZNO) return Stanje.V_TEKU;
-		}
+
+		return Stanje.V_TEKU;
 		
-		return Stanje.NEODLOCENO;
 	}
 	
 	private boolean jeObkoljena(SkupinaZetonov s) {
@@ -110,8 +106,11 @@ public class Igra {
 		int y = poteza.y();
 		Koordinati k = new Koordinati(x, y);
 		Zeton zeton = mreza.get(k);
+		// če potezo lahko naredimo, najprej spremenimo barvo žetona
 		if (zeton.polje == Polje.PRAZNO) {
 			zeton.spremeniBarvo(na_potezi.polje());
+			// naredimo novo skupino s tem samim žetonom in združimo skupine sosedov, ki so iste barve
+			// te skupine potem odstranimo iz množice skupin in dodamo novo
 			SkupinaZetonov s = new SkupinaZetonov(zeton);
 			for (Koordinati l : zeton.sosedi) {
 				Zeton nov_zeton = mreza.get(l);
@@ -119,7 +118,7 @@ public class Igra {
 					Iterator<SkupinaZetonov> iter = skupine_zetonov.iterator();
 					while (iter.hasNext()) {
 						SkupinaZetonov sk = iter.next();
-						if (sk.isIn(nov_zeton)) {
+						if (sk.vsebujeZeton(nov_zeton)) {
 							for (Zeton z : sk.skupina) {
 								s.skupina.add(z);
 							}
@@ -135,15 +134,16 @@ public class Igra {
 		}
 		return false;
 	}
-
+	
+	// vrne vse možne poteze (oz. prazna polja)
 	public LinkedList<Poteza> poteze() {
 		LinkedList<Poteza> moznePoteze = new LinkedList<Poteza>();
 		if (stanje() == Stanje.V_TEKU) {
 			for (Entry<Koordinati, Zeton> entry: this.mreza.entrySet()) {
 				Zeton o = entry.getValue();
 				if (o.polje == Polje.PRAZNO) {
-					int x = o.koordinati.getX();
-					int y = o.koordinati.getY();
+					int x = o.koordinati.x();
+					int y = o.koordinati.y();
 					moznePoteze.add(new Poteza(x,y));
 				}
 			}

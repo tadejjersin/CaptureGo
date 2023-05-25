@@ -7,15 +7,14 @@ public class Zeton {
 	public Koordinati koordinati;
 	public Set<Koordinati> sosedi;
 	public Polje polje;
-	protected boolean obkoljen;
-	protected int dim_mreze;
+	protected boolean obkoljen;	
 	
 	public Zeton(int x, int y) {
 		koordinati = new Koordinati(x, y);
 		polje = Polje.PRAZNO;
 		sosedi = new HashSet<Koordinati>();
 		obkoljen = false;
-		dim_mreze = 9;
+
 		
 		int[] arr = {1, -1};
 		for (int i : arr) {
@@ -34,7 +33,6 @@ public class Zeton {
 		obkoljen = zeton.obkoljen;
 		polje = zeton.polje;
 		sosedi = zeton.sosedi;
-		dim_mreze = 9;
 	}
 	
 	public Polje polje() {

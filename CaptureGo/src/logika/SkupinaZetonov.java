@@ -8,12 +8,14 @@ public class SkupinaZetonov {
 	public Polje barva;
 	public int oko;
 	
+	// naredi novo skupino z enim žetonom
 	public SkupinaZetonov(Zeton z) {
 		skupina = new HashSet<Zeton>();
 		skupina.add(z);
 		this.barva = z.polje;
 	}
 	
+	// naredi kopijo skupine (uporabno pri kopiranju igre)
 	public SkupinaZetonov(SkupinaZetonov s) {
 		barva = s.barva;
 		skupina = new HashSet<Zeton>();
@@ -35,10 +37,10 @@ public class SkupinaZetonov {
 						stSosedov += 1;
 					}
 				}
-				if (o.koordinati.getX() == 0 | o.koordinati.getX() == 8) {
+				if (o.koordinati.x() == 0 | o.koordinati.x() == 8) {
 					stSosedov += 1;
 				}
-				if (o.koordinati.getY() == 0 | o.koordinati.getY() == 8) {
+				if (o.koordinati.y() == 0 | o.koordinati.y() == 8) {
 					stSosedov += 1;
 				}
 				
@@ -53,7 +55,8 @@ public class SkupinaZetonov {
 		
 	}
 	
-	public boolean isIn(Zeton z) {
+	// preveri, če je žeton v skupini
+	public boolean vsebujeZeton(Zeton z) {
 		for (Zeton e : skupina) {
 			if (z.equals(e)) return true;
 		}

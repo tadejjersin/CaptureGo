@@ -1,5 +1,5 @@
 package logika;
 
 public enum Stanje {
-	ZMAGA_BELI, ZMAGA_CRNI, NEODLOCENO, V_TEKU;
+	ZMAGA_BELI, ZMAGA_CRNI, V_TEKU;
 }

@@ -19,6 +19,10 @@ public class Alphabeta {
 		this.globina = globina;
 	}
 	
+	// malo drugačna verzija minimaxa oz. alphabeta
+	// pozicijo ocenimo na enoličen način, ne glede na to, kdo je na vrsti
+	// inspiracija: https://www.youtube.com/watch?v=l-hh51ncgDI&t=537s
+	
 	// crni igralec maksimizira, beli minimalizira
 	public Poteza izberiPotezo(Igra igra) {
 		return alphabeta(igra, this.globina, Integer.MIN_VALUE, Integer.MAX_VALUE, igra.naPotezi() == Igralec.CRNI).poteza;
@@ -26,10 +30,9 @@ public class Alphabeta {
 	
 	public OcenjenaPoteza alphabeta(Igra igra, int globina, int alpha, int beta, boolean max) {
 		List<Poteza> poteze = igra.poteze();
+		// poteze preuredimo, tako da najprej pogledamo tiste, ki imajo večjo verjetnost da bodo boljše
 		Collections.sort(poteze, new NewSort(igra));
 		switch (igra.stanje()) {
-		case NEODLOCENO:
-			return new OcenjenaPoteza(null, 0);
 		case ZMAGA_BELI:
 			return new OcenjenaPoteza(null, Integer.MIN_VALUE);
 		case ZMAGA_CRNI:

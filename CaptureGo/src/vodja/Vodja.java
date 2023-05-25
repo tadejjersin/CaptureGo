@@ -29,7 +29,6 @@ public class Vodja {
 		switch (igra.stanje()) {
 		case ZMAGA_CRNI: 
 		case ZMAGA_BELI: 
-		case NEODLOCENO: 
 			return; 
 		case V_TEKU: 
 			Igralec igralec = igra.na_potezi;

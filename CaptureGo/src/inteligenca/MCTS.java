@@ -4,6 +4,8 @@ import logika.Igra;
 import logika.Stanje;
 import splosno.Poteza;
 
+
+// se ne uporablja v tekmovanju
 public class MCTS {
 	protected int n;
 	

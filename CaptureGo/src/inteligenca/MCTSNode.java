@@ -13,6 +13,8 @@ import logika.Stanje;
 
 import splosno.Poteza;
 
+
+// se ne uporablja v tekmovanju
 public class MCTSNode extends Igra {
 	protected MCTSNode parent;
 	protected LinkedList<MCTSNode> children;

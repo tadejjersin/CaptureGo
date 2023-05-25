@@ -15,26 +15,27 @@ public class OceniPozicijo {
 		int n = 0;
 		for (SkupinaZetonov skupinaZet : igra.skupine_zetonov) {
 			Polje barva = skupinaZet.barva;
-			int svobode = tockeSkupine(skupinaZet.skupina, barva, igra)[0];
-			int velikost = tockeSkupine(skupinaZet.skupina, barva, igra)[1];
+			//int svobode = tockeSkupine(skupinaZet.skupina, barva, igra)[0];
+			//nt velikost = tockeSkupine(skupinaZet.skupina, barva, igra)[1];
+			int m = tockeSkupine (skupinaZet.skupina, barva, igra);
 			if (barva == Polje.CRNO) {
-				if (svobode<2) {
+				if (m==0) {
 					return Integer.MIN_VALUE;
 				}
-				n += svobode*velikost;
+				n += m;
 			}
 			else {
-				if (svobode<2) {
+				if (m==0) {
 					return Integer.MAX_VALUE;
 				}
-				n -= svobode*velikost;
+				n -= m;
 			}
 		}
 		
 		return n;
 	}
 	
-	public static int[]  tockeSkupine(Set<Zeton> skupina, Polje barva, Igra igra) {
+	public static int tockeSkupine(Set<Zeton> skupina, Polje barva, Igra igra) {
 		Set<Zeton> svobode = new HashSet<Zeton>();
 		for (Zeton zeton : skupina) {
 			for (Koordinati koordSosed : zeton.sosedi) {
@@ -44,7 +45,11 @@ public class OceniPozicijo {
 				}
 			}
 		}
-		return new int[] {svobode.size(),skupina.size()};
+		//return new int[] {svobode.size(),skupina.size()};
+		if (svobode.size() < 2) {
+			return 0;
+		}
+		return (svobode.size()-1)*skupina.size();
 	}
 	
 }

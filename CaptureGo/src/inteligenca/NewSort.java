@@ -21,7 +21,7 @@ public class NewSort implements Comparator<Poteza> {
 	
 	private int sosedi(Poteza p) {
 		int c = 0;
-		for (Koordinati k : igra.mreza.get(new Koordinati(p.getX(), p.getY())).sosedi) {
+		for (Koordinati k : igra.mreza.get(new Koordinati(p.x(), p.y())).sosedi) {
 			if (igra.mreza.get(k).polje() != Polje.PRAZNO) c++;
 		}
 		return c;

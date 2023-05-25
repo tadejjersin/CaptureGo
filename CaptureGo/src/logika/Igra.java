@@ -106,8 +106,8 @@ public class Igra {
 	
 	
 	public boolean odigraj(Poteza poteza) {
-		int x = poteza.getX();
-		int y = poteza.getY();
+		int x = poteza.x();
+		int y = poteza.y();
 		Koordinati k = new Koordinati(x, y);
 		Zeton zeton = mreza.get(k);
 		if (zeton.polje == Polje.PRAZNO) {
